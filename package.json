@@ -1,7 +1,7 @@
 {
   "name": "eggs",
   "version": "0.0.0",
-  "description": "A client side variable binding module, part of the mise.js suite. Basically DOM sugar on top of watch.js\"",
+  "description": "A client side variable binding module, part of the mise.js suite. Basically DOM sugar on top of watch.js",
   "main": "lib/eggs.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,5 +12,9 @@
     "mise.js"
   ],
   "author": "Jesse Ditson <jesse.ditson@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "qwery": "^4.0.0",
+    "watchjs": "0.0.0"
+  }
 }
