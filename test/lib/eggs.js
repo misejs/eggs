@@ -42,7 +42,7 @@ describe('eggs',function(){
       it('should properly update the directive when data updates',function(){
         var lastValue;
         var customDirective = function(key,val,el){
-          lastValue = key;
+          lastValue = val;
         };
         var $ = cheerio.load('<div><div e-directive="test">');
         var e = eggs($,{ directives : {'directive' : customDirective } });
