@@ -1,7 +1,11 @@
 {
   "name": "eggs",
   "version": "0.0.0",
-  "description": "A client side variable binding module, part of the mise.js suite. Basically DOM sugar on top of watch.js",
+  "description": "An isomorphic html data binding module, part of the mise.js suite.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/misejs/eggs.git"
+  },
   "main": "lib/eggs.js",
   "scripts": {
     "test": "mocha --recursive --reporter spec --bail --check-leaks test/lib/",
@@ -14,5 +18,8 @@
   ],
   "author": "Jesse Ditson <jesse.ditson@gmail.com>",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^2.0.1"
+  }
 }
