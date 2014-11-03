@@ -4,7 +4,8 @@
   "description": "A client side variable binding module, part of the mise.js suite. Basically DOM sugar on top of watch.js",
   "main": "lib/eggs.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive --reporter spec --bail --check-leaks test/lib/",
+    "test-travis": "mocha --recursive --reporter spec --bail --check-leaks test/lib/"
   },
   "keywords": [
     "data",
