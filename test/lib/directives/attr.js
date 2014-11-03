@@ -15,7 +15,8 @@ describe('eggs attr directive',function(){
       somevalue : 'whatever',
       nothing : 'some-value',
       pie : 'pieValue',
-      three : 'three-value'
+      three : 'three-value',
+      testing : false
     }
     e.bind(vm);
   });
@@ -43,4 +44,14 @@ describe('eggs attr directive',function(){
   it('should set an attrobute to the associated property when provided as part of a map',function(){
     assert(/three-value="three-value"/.test($.html()));
   });
+
+  it('should remove an attribute if set to false',function(done){
+    vm.somevalue = false;
+    setTimeout(function(){
+      assert(!/whatever/.test($.html()));
+      vm.somevalue = true;
+      done();
+    },20);
+  });
+
 });
