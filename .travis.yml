@@ -15,8 +15,8 @@ env:
     - TEST_ENV=server
     - TEST_ENV=browser
   global:
-    - secure: L5pGpJI1bjk3ZUGkf6Igxhkg3fq88DKeEJXaqnkt3SuTvGDXuyFmwb3UJsdGAyg3QKoybs4xkFOKunaYpuCJPZ+M3qpS0QNqMNFZkfvRJ9wPihYY3WjF9R/w1GXeOzeGk4itnQnJWvuO6ihVLa87MLnuH7J5HZZymMfrbL0s1OU=
-    - secure: AdFvvvD9wLxEbDo8AvUwyIEd/Tx1pVWPFtn2ICCSW7Zi8gPewh3mwKyTQqcQmc+E2qGY7NC9rrUtbY7uB9A2992UWr05F10O3i1UzM8bGd1KzvzZsXeC3eFeDKuqV88NNm0u9NQG4TV12Ox5KYRl+0+5TR13l8cjQV3EzV0nLms=
+    - secure: ieYcAISx7TgwPUpeZXn1JeAFICQB2sOo9xDrEITPUAIqZUKhNvXRGnpLFQFIhi2ov5N2+WLNK5TFLlahxm1U6DYSg6L+WJYLYMEyE5oriMDElOiE+jJhl/L8up4zH5qTE02gJptH0Tzz0GPcu8zQryM3JfhcfFoxRxcE5Zc6WBc=
+    - secure: bScKFizEshrC39XzzzXv7IV02y+seAlUlGyl2nMJsM0sqgD1vJawT6ZDBvy68BXRIzams2PN3CbL9hHfTKVxJLM4gSYCdu7KsmZ1IXi4dYhC0oSGz5ejd3k79j4prMO8J+AooMWl20zBB/KgN4PdTWfK1g4TfAHLpAtOFRRl5tI=
 addons:
   sauce_connect: true
 script: "npm run-script test-travis-$TEST_ENV"
