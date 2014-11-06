@@ -3,8 +3,12 @@ node_js:
   - "0.10"
   - "0.11"
 matrix:
+  exclude:
+    - node_js: "0.10"
+      env: TEST_ENV=browser
   allow_failures:
     - node_js: "0.11"
+      env: TEST_ENV=browser
   fast_finish: true
 env:
   matrix:
