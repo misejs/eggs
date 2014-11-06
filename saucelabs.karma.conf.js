@@ -32,6 +32,12 @@ var browsers = {
     browserName: 'internet explorer',
     platform: 'Windows 8.1',
     version: '11'
+  },
+  'SL_IOS_SAFARI': {
+    base: 'SauceLabs',
+    browserName: 'iphone',
+    platform: 'OS X 10.9',
+    version: '7.1'
   }
 };
 
