@@ -11,7 +11,7 @@
     "test": "mocha --recursive --reporter spec --bail --check-leaks test/lib/",
     "test-browser": "karma start local.karma.conf.js",
     "test-travis-server": "./node_modules/.bin/mocha --recursive --reporter spec --bail --check-leaks test/lib/",
-    "test-travis-browser": "./node_modules/.bin/karma start saucelabs.karma.conf.js"
+    "test-travis-browser": "./node_modules/.bin/karma start travis.karma.conf.js"
   },
   "keywords": [
     "data",
