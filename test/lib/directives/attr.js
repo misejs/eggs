@@ -30,7 +30,9 @@ describe('eggs attr directive',function(){
   });
 
   it('should set multiple properties when provided a single statement',function(){
-    assert(/one=".+two=".+three-value="/.test($.html()));
+    assert(/one="/.test($.html()),'expected to find attribute one in html fragment: ' + $.html());
+    assert(/two="/.test($.html()),'expected to find attribute two in html fragment: ' + $.html());
+    assert(/three-value="/.test($.html()),'expected to find attribute three-value in html fragment: ' + $.html());
   });
 
   it('should set the value to the variable name when not provided by the model',function(){
