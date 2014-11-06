@@ -7,7 +7,7 @@ describe('eggs',function(){
   var $;
 
   before(function(){
-    $ = utils.loadHTML();
+    $ = utils.loadHTML('<html>');
   });
 
   it('should create a new instance of eggs when called',function(){
