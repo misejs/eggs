@@ -1,22 +1,33 @@
 var browsers = {
-  sl_chrome: {
+  'SL_Chrome': {
     base: 'SauceLabs',
     browserName: 'chrome',
-    platform: 'Windows 7',
     version: '35'
   },
-  sl_firefox: {
+  'SL_Firefox': {
     base: 'SauceLabs',
     browserName: 'firefox',
-    version: '30'
+    version: '26'
   },
-  sl_ios_safari: {
+  'SL_Safari': {
     base: 'SauceLabs',
-    browserName: 'iphone',
+    browserName: 'safari',
     platform: 'OS X 10.9',
-    version: '7.1'
+    version: '7'
   },
-  sl_ie_11: {
+  'SL_IE_9': {
+    base: 'SauceLabs',
+    browserName: 'internet explorer',
+    platform: 'Windows 2008',
+    version: '9'
+  },
+  'SL_IE_10': {
+    base: 'SauceLabs',
+    browserName: 'internet explorer',
+    platform: 'Windows 2012',
+    version: '10'
+  },
+  'SL_IE_11': {
     base: 'SauceLabs',
     browserName: 'internet explorer',
     platform: 'Windows 8.1',
@@ -29,6 +40,10 @@ module.exports = function(config) {
   require('./local.karma.conf.js')(config);
   // override necessary stuff
   config.set({
+    sauceLabs : {
+      recordScreenshots: false,
+      testName : 'eggs',
+    },
     reporters: ['saucelabs', 'spec'],
     browsers: Object.keys(browsers),
     customLaunchers: browsers
