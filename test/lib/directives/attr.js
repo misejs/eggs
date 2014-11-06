@@ -1,7 +1,7 @@
 var assert = require('assert');
 
 var eggs = require('../../../lib/eggs');
-var cheerio = require('cheerio');
+var utils = require('../../utils');
 
 describe('eggs attr directive',function(){
   var $;
@@ -9,7 +9,7 @@ describe('eggs attr directive',function(){
   var vm;
 
   before(function(){
-    $ = cheerio.load('<div><div e-attr="nothing"><div id="content"><div e-attr="nothing"></div><div e-attr="something:somevalue"></div><div e-attr="one:pork,two:pie,three">');
+    $ = utils.loadHTML('<div><div e-attr="nothing"><div id="content"><div e-attr="nothing"></div><div e-attr="something:somevalue"></div><div e-attr="one:pork,two:pie,three">');
     e = eggs($,{selector : '#content'});
     vm = {
       somevalue : 'whatever',
@@ -41,7 +41,7 @@ describe('eggs attr directive',function(){
     assert(/two="pieValue"/.test($.html()));
   });
 
-  it('should set an attrobute to the associated property when provided as part of a map',function(){
+  it('should set an attribute to the associated property when provided as part of a map',function(){
     assert(/three-value="three-value"/.test($.html()));
   });
 

@@ -9,7 +9,9 @@
   "main": "lib/eggs.js",
   "scripts": {
     "test": "mocha --recursive --reporter spec --bail --check-leaks test/lib/",
-    "test-travis": "mocha --recursive --reporter spec --bail --check-leaks test/lib/"
+    "test-browser": "karma start local.karma.conf.js",
+    "test-travis-server": "mocha --recursive --reporter spec --bail --check-leaks test/lib/",
+    "test-travis-browser": "karma start saucelabs.karma.conf.js"
   },
   "keywords": [
     "data",
@@ -21,6 +23,13 @@
   "dependencies": {},
   "devDependencies": {
     "cheerio": "^0.17.0",
+    "jquery": "^2.1.1",
+    "karma": "^0.12.24",
+    "karma-bro": "^0.10.0",
+    "karma-mocha": "^0.1.9",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-sauce-launcher": "^0.2.10",
+    "karma-spec-reporter": "0.0.13",
     "mocha": "^2.0.1"
   }
 }

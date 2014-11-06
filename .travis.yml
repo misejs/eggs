@@ -6,4 +6,12 @@ matrix:
   allow_failures:
     - node_js: "0.11"
   fast_finish: true
-script: "npm run-script test-travis"
+env:
+  - SCRIPT_POSTFIX=-server
+  - SCRIPT_POSTFIX=-browser
+  global:
+    - secure: L5pGpJI1bjk3ZUGkf6Igxhkg3fq88DKeEJXaqnkt3SuTvGDXuyFmwb3UJsdGAyg3QKoybs4xkFOKunaYpuCJPZ+M3qpS0QNqMNFZkfvRJ9wPihYY3WjF9R/w1GXeOzeGk4itnQnJWvuO6ihVLa87MLnuH7J5HZZymMfrbL0s1OU=
+    - secure: AdFvvvD9wLxEbDo8AvUwyIEd/Tx1pVWPFtn2ICCSW7Zi8gPewh3mwKyTQqcQmc+E2qGY7NC9rrUtbY7uB9A2992UWr05F10O3i1UzM8bGd1KzvzZsXeC3eFeDKuqV88NNm0u9NQG4TV12Ox5KYRl+0+5TR13l8cjQV3EzV0nLms=
+addons:
+  sauce_connect: true
+script: "npm run-script test-travis$SCRIPT_POSTFIX"

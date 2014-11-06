@@ -1,7 +1,7 @@
 var assert = require('assert');
 
 var eggs = require('../../../lib/eggs');
-var cheerio = require('cheerio');
+var utils = require('../../utils');
 
 describe('eggs class directive',function(){
   var $;
@@ -9,11 +9,11 @@ describe('eggs class directive',function(){
   var vm;
 
   before(function(){
-    $ = cheerio.load('<div><div e-class="nothing"><div id="content"><div e-class="nothing"></div><div e-class="something"></div><div e-class="one,pie,three:three">');
+    $ = utils.loadHTML('<div><div e-class="nothing"><div id="content"><div e-class="nothing"></div><div e-class="something"></div><div e-class="one,pickle,three:three">');
     e = eggs($,{selector : '#content'});
     vm = {
       something : 'whatever',
-      pie : 'pie-class',
+      pickle : 'pie-class',
       three : true
     }
     e.bind(vm);
@@ -34,7 +34,8 @@ describe('eggs class directive',function(){
   it('should remove a class when set to false',function(done){
     vm.three = false;
     setTimeout(function(){
-      assert(/\sclass="one pie-class"/.test($.html()));
+      assert(!/\sclass="[^\"]*three[^\"]*"/.test($.html()));
+      vm.three = true;
       done();
     },20);
   });

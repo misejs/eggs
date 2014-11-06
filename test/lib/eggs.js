@@ -1,13 +1,13 @@
 var assert = require('assert');
 
 var eggs = require('../../lib/eggs');
-var cheerio = require('cheerio');
+var utils = require('../utils');
 
 describe('eggs',function(){
   var $;
 
   before(function(){
-    $ = cheerio.load('<html>');
+    $ = utils.loadHTML();
   });
 
   it('should create a new instance of eggs when called',function(){
@@ -44,7 +44,7 @@ describe('eggs',function(){
         var customDirective = function(key,val,el){
           lastValue = val;
         };
-        var $ = cheerio.load('<div><div e-directive="test">');
+        var $ = utils.loadHTML('<div><div e-directive="test">');
         var e = eggs($,{ directives : {'directive' : customDirective } });
         var model = {test : 'pork'};
         e.bind(model);
@@ -79,7 +79,7 @@ describe('eggs',function(){
 
       it('should use that prefix for existing directives',function(){
         var lastValue;
-        var $ = cheerio.load('<div><div foo-text="test">');
+        var $ = utils.loadHTML('<div><div foo-text="test">');
         var e = eggs($,{prefix:'foo'});
         var model = {test : 'pork'};
         e.bind(model);
@@ -92,7 +92,7 @@ describe('eggs',function(){
 
       it('should be constrained to elements inside of that selector',function(){
         var lastValue;
-        var $ = cheerio.load('<div><div e-text="test"><div id="pork"><div e-text="test">');
+        var $ = utils.loadHTML('<div><div e-text="test"><div id="pork"><div e-text="test">');
         var e = eggs($,{selector:'#pork'});
         var model = {test : 'pork'};
         e.bind(model);
