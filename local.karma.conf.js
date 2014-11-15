@@ -2,8 +2,8 @@ module.exports = function(config) {
   config.set({
     logLevel: 'LOG_DEBUG',
     reporters: ['spec'],
-    singleRun : true,
-    autoWatch : false,
+    singleRun : false,
+    autoWatch : true,
     frameworks: [
       'mocha',
       'browserify'
