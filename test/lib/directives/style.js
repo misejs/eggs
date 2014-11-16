@@ -3,7 +3,7 @@ var assert = require('assert');
 var eggs = require('../../../lib/eggs');
 var utils = require('../../utils');
 
-describe('eggs attr directive',function(){
+describe('eggs style directive',function(){
   var $;
   var e;
   var vm;
@@ -33,10 +33,11 @@ describe('eggs attr directive',function(){
     assert.equal($('#b').css('height'),'100');
   });
 
-  it('should update values when changed',function(){
+  it('should update values when changed',function(done){
     vm.pie = 200;
     setTimeout(function(){
       assert.equal($('#b').css('width'),'200');
+      done();
     },utils.updateTimeout);
   });
 
