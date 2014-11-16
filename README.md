@@ -16,15 +16,13 @@ Why:
 
 The world probably does not need another data binding library, but after trying nearly all of them, I found that I couldn't make any of them do what I wanted them to do. Namely:
 
-- Isomorphism - I needed a library that will render everywhere
+- Isomorphic - I needed a library that will render everywhere
 - Size/features - I needed a library that was not trying to do more than binding - just the basics.
 - Avoid Dirty checking/polling - Object.observe is a wonderful new API, and while I'm sure everyone will eventually migrate, I'd prefer to have a library that was built with it in mind.
 - Native JS objects as viewmodels - I don't want to call `vm.property()` to access it's value, I just want my viewmodels rendered in real time without any modification.
 
 What it does:
 ============
-
-eggs is the 2-way data binding layer of [mise.js](https://github.com/misejs/mise).
 
 Similar to other 2-way data binding libraries, eggs relies on viewmodels and data attributes to populate html in real time based on js objects.
 
