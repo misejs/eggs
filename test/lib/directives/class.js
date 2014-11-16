@@ -36,7 +36,7 @@ describe('eggs class directive',function(){
     setTimeout(function(){
       assert(!/\sclass="[^\"]*three[^\"]*"/.test($.html()));
       done();
-    },20);
+    },utils.updateTimeout);
   });
 
 });

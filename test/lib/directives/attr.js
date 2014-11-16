@@ -53,7 +53,7 @@ describe('eggs attr directive',function(){
       assert(!/whatever/.test($.html()));
       vm.somevalue = true;
       done();
-    },20);
+    },utils.updateTimeout);
   });
 
 });
