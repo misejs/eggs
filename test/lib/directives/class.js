@@ -35,7 +35,6 @@ describe('eggs class directive',function(){
     vm.three = false;
     setTimeout(function(){
       assert(!/\sclass="[^\"]*three[^\"]*"/.test($.html()));
-      vm.three = true;
       done();
     },20);
   });
