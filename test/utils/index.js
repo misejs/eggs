@@ -47,4 +47,6 @@ utils.click = function(element){
   (element.length ? element[0] : element).dispatchEvent(e);
 }
 
+utils.updateTimeout = Object.observe ? 0 : 110;
+
 module.exports = utils;

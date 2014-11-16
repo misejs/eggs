@@ -52,7 +52,7 @@ describe('eggs repeat directive',function(){
       setTimeout(function(){
         assert.equal($('#ul').children().length,2);
         done();
-      },110);
+      },utils.updateTimeout);
     });
     it('should replace html when replacing the array',function(done){
       vm.items = [ { text : 'new item' } ];
@@ -61,7 +61,7 @@ describe('eggs repeat directive',function(){
         assert.equal(els.length,1);
         assert(els.first().find('h3').text(),'new item');
         done();
-      },110);
+      },utils.updateTimeout);
     });
     it('should be able to add even if no DOM elements exist',function(done){
       vm.items = [];
@@ -78,9 +78,9 @@ describe('eggs repeat directive',function(){
             assert.equal(els.length,2);
             assert(els.last().find('h3').text(),'pushed two');
             done();
-          },110);
-        },110);
-      },110);
+          },utils.updateTimeout);
+        },utils.updateTimeout);
+      },utils.updateTimeout);
     });
   });
 
