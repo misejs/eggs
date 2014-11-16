@@ -47,27 +47,40 @@ describe('eggs repeat directive',function(){
   });
 
   describe('adding and removing items',function(){
-    it('should remove the DOM element when removing an item',function(){
+    it('should remove the DOM element when removing an item',function(done){
       vm.items.pop();
-      assert.equal($('#ul').children().length,2);
+      setTimeout(function(){
+        assert.equal($('#ul').children().length,2);
+        done();
+      },110);
     });
-    it('should replace html when replacing the array',function(){
+    it('should replace html when replacing the array',function(done){
       vm.items = [ { text : 'new item' } ];
-      var els = $('#ul').children();
-      assert.equal(els.length,1);
-      assert(els.first().find('h3').text(),'new item');
+      setTimeout(function(){
+        var els = $('#ul').children();
+        assert.equal(els.length,1);
+        assert(els.first().find('h3').text(),'new item');
+        done();
+      },110);
     });
-    it('should be able to add even if no DOM elements exist',function(){
+    it('should be able to add even if no DOM elements exist',function(done){
       vm.items = [];
-      assert.equal($('#ul').children().length,0);
-      vm.push({ text : 'pushed one' });
-      var els = $('#ul').children();
-      assert.equal(els.length,1);
-      assert(els.first().find('h3').text(),'pushed one');
-      vm.push({ text : 'pushed two' });
-      var els = $('#ul').children();
-      assert.equal(els.length,2);
-      assert(els.last().find('h3').text(),'pushed two');
+      setTimeout(function(){
+        assert.equal($('#ul').children().length,0);
+        vm.items.push({ text : 'pushed one' });
+        setTimeout(function(){
+          var els = $('#ul').children();
+          assert.equal(els.length,1);
+          assert(els.first().find('h3').text(),'pushed one');
+          vm.items.push({ text : 'pushed two' });
+          setTimeout(function(){
+            var els = $('#ul').children();
+            assert.equal(els.length,2);
+            assert(els.last().find('h3').text(),'pushed two');
+            done();
+          },110);
+        },110);
+      },110);
     });
   });
 

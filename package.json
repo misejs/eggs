@@ -8,7 +8,7 @@
   },
   "main": "lib/eggs.js",
   "scripts": {
-    "test": "mocha --recursive --reporter spec --bail --check-leaks test/lib/",
+    "test": "mocha --recursive --reporter spec --bail --slow 700 --check-leaks test/lib/",
     "test-browser": "karma start local.karma.conf.js",
     "test-sauce-browser": "[ -e 'sauce_credentials.sh' ] && source sauce_credentials.sh; ./node_modules/.bin/karma start saucelabs.karma.conf.js",
     "test-travis-server": "./node_modules/.bin/mocha --recursive --reporter spec --bail --check-leaks test/lib/",
@@ -21,7 +21,9 @@
   ],
   "author": "Jesse Ditson <jesse.ditson@gmail.com>",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "observe-js": "^0.4.2"
+  },
   "devDependencies": {
     "cheerio": "^0.17.0",
     "jquery": "^2.1.1",
