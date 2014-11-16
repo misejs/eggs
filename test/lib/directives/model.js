@@ -95,8 +95,8 @@ describe('eggs model directive',function(){
           setTimeout(function(){
             assert.equal(vm.inputText,t);
             done();
-          },100);
-        },100);
+          },110);
+        },110);
       });
       it('should set the correct value on the viewmodel for textareas',function(done){
         var t = 'textarea new text';
@@ -106,8 +106,8 @@ describe('eggs model directive',function(){
           setTimeout(function(){
             assert.equal(vm.textarea,t);
             done();
-          },100);
-        },100);
+          },110);
+        },110);
       });
       it('should set the correct value on the viewmodel for select elements',function(done){
         var t = '3';
@@ -117,8 +117,8 @@ describe('eggs model directive',function(){
           setTimeout(function(){
             assert.equal(vm.select,t);
             done();
-          },100);
-        },100);
+          },110);
+        },110);
       });
       it('should set the correct value on the viewmodel for contenteditable elements',function(done){
         var t = 'contenteditable text';
@@ -128,8 +128,8 @@ describe('eggs model directive',function(){
           setTimeout(function(){
             assert.equal(vm.editable,t);
             done();
-          },100);
-        },100);
+          },110);
+        },110);
       });
     });
   } else {
