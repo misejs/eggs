@@ -138,7 +138,7 @@ We're using 2 directives in this example, `repeat`, and `text`. There are a few 
 API Docs:
 ======
 
-####constructor/factory:
+####`constructor/factory`
 
 ```javascript
 var eggs = require('eggs');
@@ -175,6 +175,8 @@ Force an update to the latest viewmodel data - this is unnecessary (and does not
 Directives:
 ======
 
+###**TODO:**
+
 ####`attr`
 
 ####`class`
@@ -192,6 +194,11 @@ Directives:
 ####`style`
 
 ####`text`
+
+Custom Directives:
+======
+
+###**TODO:**
 
 Caveats:
 ======
