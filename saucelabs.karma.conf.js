@@ -44,6 +44,8 @@ module.exports = function(config) {
       recordScreenshots: false,
       testName : 'eggs',
     },
+    singleRun : true,
+    autoWatch : false,
     reporters: ['saucelabs', 'spec'],
     browsers: Object.keys(browsers),
     customLaunchers: browsers

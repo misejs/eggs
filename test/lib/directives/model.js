@@ -95,14 +95,14 @@ describe('eggs model directive',function(){
           setTimeout(function(){
             assert.equal(vm.inputText,t);
             done();
-          })
-        });
+          },100);
+        },100);
       });
       it('should set the correct value on the viewmodel for textareas',function(done){
         var t = 'textarea new text';
-        $('#textarea').val('');
+        $('#textarea').val(t);
         setTimeout(function(){
-          utils.type($('#textarea'),t);
+          utils.change($('#textarea'));
           setTimeout(function(){
             assert.equal(vm.textarea,t);
             done();
@@ -124,7 +124,7 @@ describe('eggs model directive',function(){
         var t = 'contenteditable text';
         $('#editable').text(t);
         setTimeout(function(){
-          utils.change($('#editable'),t);
+          utils.change($('#editable'));
           setTimeout(function(){
             assert.equal(vm.editable,t);
             done();

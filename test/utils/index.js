@@ -15,8 +15,9 @@ utils.loadHTML = function(html){
 }
 
 utils.type = function(element,text){
-  var e = document.createEvent('TextEvent');
-  e.initTextEvent('textInput',true,true,null,text);
+  var e;
+  e = document.createEvent('TextEvent');
+  e.initTextEvent('textInput',true,true,null,text,9,"en-US");
   (element.length ? element[0] : element).dispatchEvent(e);
 }
 
