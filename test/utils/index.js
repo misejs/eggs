@@ -32,4 +32,19 @@ utils.change = function(element){
   (element.length ? element[0] : element).dispatchEvent(e);
 }
 
+utils.click = function(element){
+  var e;
+  try {
+    e = new MouseEvent('click',{
+      'view': window,
+      'bubbles': true,
+      'cancelable': true
+    });
+  } catch(err) {
+    e = document.createEvent('MouseEvent');
+    e.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+  }
+  (element.length ? element[0] : element).dispatchEvent(e);
+}
+
 module.exports = utils;
