@@ -3,7 +3,7 @@ var assert = require('assert');
 var eggs = require('../../../lib/eggs');
 var utils = require('../../utils');
 
-describe('eggs model directive',function(){
+describe('eggs on directive',function(){
   var $;
   var e;
   var vm;
@@ -11,9 +11,8 @@ describe('eggs model directive',function(){
   before(function(){
     $ = utils.loadHTML('<div><div id="content">\
         <input id="button" e-on="click:clicked" type="button" value="click me"/>');
-    e = eggs($,{selector : '#content'});
-    vm = {}
-    e.bind(vm);
+    e = eggs($,{selector : '#content'},function(){});
+    vm = e.viewModel;
   });
 
   if(typeof window != 'undefined'){

@@ -57,14 +57,14 @@ var $ = cheerio.load('<div id="content">\
   <ul id="ul" e-repeat="items">\
     <li>\
       <h3 e-text="title"></h3>');
-var viewModel = {
-  items : [
+function ViewModel(){
+  this.items = [
     { title : "Item One" },
     { title : "Item Two" },
     { title : "Item Three" }
-  ]
+  ];
 };
-eggs($,{selector : '#content'}).bind(viewModel);
+eggs($,{selector : '#content'},ViewModel);
 ```
 
 In your preferred server side library, you can render the content by grabbing the html from cheerio:
@@ -94,14 +94,14 @@ This will send the following response to your client:
 On the client, you'll now have bootstrapped content, but you can re-bind if you want to make changes in real time:
 
 ```javascript
-var viewModel = {
-  items : [
+function ViewModel(){
+  this.items = [
     { title : "Item One" },
     { title : "Item Two" },
     { title : "Item Three" }
-  ]
+  ];
 };
-eggs($,{selector : '#content'}).bind(viewModel);
+eggs($,{selector : '#content'},ViewModel);
 ```
 
 This is a bit of a contrived example, but since your viewmodels now work on both the server and the client, you're able to either generate or retrieve the same data from your API, and it'll be rendered on both.
@@ -143,26 +143,33 @@ API Docs:
 ```javascript
 var eggs = require('eggs');
 
-var e = eggs(/* required: a $, with cheerio compatibility. */,/* an optional options object */);
+/**
+* factory - the factory that instantiates an eggs instance
+*
+* @param {function} $ - a cheerio-compatible $ Object
+* @param {object} options - an optional object with options
+* @param {function} ViewModel - a constructor function for a viewModel
+* @param {function} callback - an optional callback for when we complete setup
+*
+* @return {object} eggs - an instantiated eggs object
+*/
+var e = eggs($,options,ViewModel,callback);
 ```
 
-the top level eggs object is a factory that returns an instance of eggs that you can call `.bind()` on.
+the top level eggs object is a factory that returns an instance of eggs.
 
 You must pass a first argument of $, which should be a cheerio compatible, jQuery-like object/function.
 
 The second argument is an optional hash of options, which can be one or more of:
 
-- `selector`   : a css selector of the root level object for the viewmodel you intend to bind.
+- `selector`   : a css selector of the root level object for the viewmodel you intend to bind. If you pass a selector and it is unmatched, we will not instantiate the passed ViewModel.
 - `prefix`     : a string, used to define what the directive prefix is. Defaults to `e`.
 - `directives` : a hash of custom directives, with names as keys and directive functions as values.
 
-####`eggs.bind`
+The third argument is a ViewModel constructor. It must be a function, and will be called by eggs.
+The constructor takes one optional argument, a callback for asynchronous ViewModels. If your ViewModel is not asynchronous, don't provide this argument and eggs will run non-async (and still call the main callback).
 
-```javascript
-e.bind(/* a viewmodel which can be any javascript object */);
-```
-
-Bind a view model, and start listening for changes.
+The last argument is an optional callback, for when eggs has completed initial binding.
 
 ####`eggs.update`
 

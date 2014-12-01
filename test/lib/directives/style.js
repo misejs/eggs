@@ -12,14 +12,14 @@ describe('eggs style directive',function(){
     $ = utils.loadHTML('<div id="content">\
       <div id="a" e-style="background-color:somevalue"></div>\
       <div id="b" e-style="background-color:pork,width:pie,height:three">');
-    e = eggs($,{selector : '#content'});
-    vm = {
-      pork : 'blue',
-      somevalue : 'red',
-      pie : 189,
-      three : 100
-    }
-    e.bind(vm);
+    function VM(){
+      this.pork = 'blue';
+      this.somevalue = 'red';
+      this.pie = 189;
+      this.three = 100;
+    };
+    e = eggs($,{selector : '#content'},VM);
+    vm = e.viewModel;
   });
 
   it('should set the style of a specified key to the evaluated value',function(){

@@ -13,15 +13,15 @@ describe('eggs repeat directive',function(){
       <ul id="ul" e-repeat="items">\
         <li>\
           <h3 e-text="key"></h3>');
-    e = eggs($,{selector : '#content'});
-    vm = {
-      items : [
+    function VM(){
+      this.items = [
         { key : 'item one' },
         { key : 'item two' },
         { key : 'item three' }
       ]
-    }
-    e.bind(vm);
+    };
+    e = eggs($,{selector : '#content'},VM);
+    vm = e.viewModel;
   });
 
   it('should create the proper number of children',function(){

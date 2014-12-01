@@ -10,11 +10,11 @@ describe('eggs text directive',function(){
 
   before(function(){
     $ = utils.loadHTML('<div><div e-text="text"><div id="content"><div e-text="text"></div>');
-    e = eggs($,{selector : '#content'});
-    vm = {
-      text : 'some text'
+    function VM(){
+      this.text = 'some text';
     }
-    e.bind(vm);
+    e = eggs($,{selector : '#content'},VM);
+    vm = e.viewModel;
   });
 
   it('should set the text of the div with the directive',function(){

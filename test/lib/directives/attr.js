@@ -10,15 +10,15 @@ describe('eggs attr directive',function(){
 
   before(function(){
     $ = utils.loadHTML('<div><div e-attr="nothing"><div id="content"><div e-attr="nothing"></div><div e-attr="something:somevalue"></div><div e-attr="one:pork,two:pie,three">');
-    e = eggs($,{selector : '#content'});
-    vm = {
-      somevalue : 'whatever',
-      nothing : 'some-value',
-      pie : 'pieValue',
-      three : 'three-value',
-      testing : false
-    }
-    e.bind(vm);
+    function VM(){
+      this.somevalue = 'whatever';
+      this.nothing = 'some-value';
+      this.pie = 'pieValue';
+      this.three = 'three-value';
+      this.testing = false;
+    };
+    e = eggs($,{selector : '#content'},VM);
+    vm = e.viewModel;
   });
 
   it('should set an attribute to the associated property of the model',function(){

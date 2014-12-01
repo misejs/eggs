@@ -10,9 +10,8 @@ describe('eggs show directive',function(){
 
   before(function(){
     $ = utils.loadHTML('<div><div e-html="html"><div id="content"><div id="showme" e-show="show"></div>');
-    e = eggs($,{selector : '#content'});
-    vm = {};
-    e.bind(vm);
+    e = eggs($,{selector : '#content'},function(){});
+    vm = e.viewModel;
   });
 
   it('should hide an element if the value is falsey',function(done){

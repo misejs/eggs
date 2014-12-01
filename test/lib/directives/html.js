@@ -10,11 +10,11 @@ describe('eggs html directive',function(){
 
   before(function(){
     $ = utils.loadHTML('<div><div e-html="html"><div id="content"><div e-html="html"></div>');
-    e = eggs($,{selector : '#content'});
-    vm = {
-      html : '<a href="http://prixfixeapp.com"></a>'
-    }
-    e.bind(vm);
+    function VM(){
+      this.html = '<a href="http://prixfixeapp.com"></a>';
+    };
+    e = eggs($,{selector : '#content'},VM);
+    vm = e.viewModel;
   });
 
   it('should set the html of the div with the directive',function(){

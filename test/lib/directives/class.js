@@ -10,13 +10,13 @@ describe('eggs class directive',function(){
 
   before(function(){
     $ = utils.loadHTML('<div><div e-class="nothing"><div id="content"><div e-class="nothing"></div><div e-class="something"></div><div e-class="one,pickle,three:three">');
-    e = eggs($,{selector : '#content'});
-    vm = {
-      something : 'whatever',
-      pickle : 'pie-class',
-      three : true
+    function VM(){
+      this.something = 'whatever';
+      this.pickle = 'pie-class';
+      this.three = true;
     }
-    e.bind(vm);
+    e = eggs($,{selector : '#content'},VM);
+    vm = e.viewModel;
   });
 
   it('should set the hardcoded class if unavailable on the model',function(){

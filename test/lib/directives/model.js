@@ -15,15 +15,15 @@ describe('eggs model directive',function(){
         <select id="select" e-model="select"><option label="one" value="1"/><option label="two" value="2"/><option label="three" value="3"/></select>\
         <div e-model="editable" id="editable" contenteditable="true"></div>\
         <div id="noneditable">original</div>');
-    e = eggs($,{selector : '#content'});
-    vm = {
-      inputText : "input text",
-      textarea : "textarea text",
-      select : "2",
-      editable : "some content that is editable",
-      noneditable : "nothing"
+    function VM(){
+      this.inputText = "input text";
+      this.textarea = "textarea text";
+      this.select = "2";
+      this.editable = "some content that is editable";
+      this.noneditable = "nothing";
     }
-    e.bind(vm);
+    e = eggs($,{selector : '#content'},VM);
+    vm = e.viewModel;
   });
 
   describe('initial values',function(){
