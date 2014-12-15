@@ -22,6 +22,8 @@
   "author": "Jesse Ditson <jesse.ditson@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^1.0.0",
+    "express-layout": "git://github.com/misejs/express-layout#views_array_support",
     "observe-js": "^0.4.2"
   },
   "devDependencies": {
