@@ -59,7 +59,7 @@ describe('eggs repeat directive',function(){
       setTimeout(function(){
         var els = $('#ul').children();
         assert.equal(els.length,1);
-        assert(els.first().find('h3').text(),'new item');
+        assert.equal(els.first().find('h3').text(),'new item');
         done();
       },utils.updateTimeout);
     });
@@ -71,12 +71,12 @@ describe('eggs repeat directive',function(){
         setTimeout(function(){
           var els = $('#ul').children();
           assert.equal(els.length,1);
-          assert(els.first().find('h3').text(),'pushed one');
+          assert.equal(els.first().find('h3').text(),'pushed one');
           vm.items.push({ text : 'pushed two' });
           setTimeout(function(){
             var els = $('#ul').children();
             assert.equal(els.length,2);
-            assert(els.last().find('h3').text(),'pushed two');
+            assert.equal(els.last().find('h3').text(),'pushed two');
             done();
           },utils.updateTimeout);
         },utils.updateTimeout);
