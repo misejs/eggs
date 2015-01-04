@@ -51,7 +51,7 @@ describe('VirtualDom',function(){
     it('should render a new value properly',function(){
       var context = $(vDom.context());
       var valEl = getValueElement(context);
-      $(valEl).addClass('testValueElement').val('my great new value');
+      $(valEl).addClass('testValueElement').attr('value','my great new value');
       vDom.render(context);
       var rendered = $('.testValueElement');
       assert.equal(rendered.val(),'my great new value');
