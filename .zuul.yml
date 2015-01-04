@@ -1,0 +1,4 @@
+ui: mocha-bdd
+browsers:
+ - name: chrome
+   version: latest
