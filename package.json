@@ -12,7 +12,7 @@
     "test-browser": "zuul --local 8080 -- test/browser.js & sleep 5 && open http://localhost:8080/__zuul && fg 1",
     "test-browser-cloud": "zuul -- test/browser.js",
     "test-travis-server": "./node_modules/.bin/mocha --reporter spec --bail --check-leaks test/server.js",
-    "test-travis-browser": "./node_modules/.bin/zuul -- test/browser.js"
+    "test-travis-browser": "zuul -- test/browser.js"
   },
   "keywords": [
     "data",
