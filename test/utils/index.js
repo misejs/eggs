@@ -50,12 +50,19 @@ utils.click = function(element){
 }
 
 utils.htmlEscape = function(str) {
+  if (typeof document == 'undefined') {
+    return str;
+  }
   return String(str)
   .replace(/&/g, '&amp;')
   .replace(/"/g, '&quot;')
   .replace(/'/g, '&#39;')
   .replace(/</g, '&lt;')
   .replace(/>/g, '&gt;');
+}
+
+utils.outerHTML = function($,element){
+  return $('<p>').append(element.clone()).html();
 }
 
 utils.updateTimeout = Object.observe ? 0 : 110;

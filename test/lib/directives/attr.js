@@ -17,6 +17,7 @@ describe('eggs attr directive',function(){
       this.pie = 'pieValue';
       this.three = 'three-value';
       this.testing = false;
+      this.pork = 'beans';
     };
     e = eggs($,{selector : '#content'},VM);
     vm = e.viewModel;
@@ -38,10 +39,6 @@ describe('eggs attr directive',function(){
     assert(/three-value="/.test(out),'expected to find attribute three-value in html fragment: ' + fragment);
   });
 
-  it('should set the value to the variable name when not provided by the model',function(){
-    assert(/one="pork"/.test(out));
-  });
-
   it('should set the value to a the value of the property by that name when both value and key are provided',function(){
     assert(/two="pieValue"/.test(out));
   });
@@ -53,7 +50,7 @@ describe('eggs attr directive',function(){
   it('should remove an attribute if set to false',function(done){
     vm.somevalue = false;
     setTimeout(function(){
-      assert(!/whatever/.test(out));
+      assert(!/whatever/.test($.html()));
       vm.somevalue = true;
       done();
     },utils.updateTimeout);

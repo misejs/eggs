@@ -14,13 +14,10 @@ describe('eggs class directive',function(){
       this.something = 'whatever';
       this.pickle = 'pie-class';
       this.three = true;
+      this.one = 'one';
     }
     e = eggs($,{selector : '#content'},VM);
     vm = e.viewModel;
-  });
-
-  it('should set the hardcoded class if unavailable on the model',function(){
-    assert(/\sclass="nothing"/.test($.html()));
   });
 
   it('should set the computed class if available on the model',function(){

@@ -19,7 +19,7 @@ describe('eggs',function(){
 
   it('should have the built-in directives',function(){
     var e = eggs($,function(){});
-    assert.equal(Object.keys(e.directives).length,9);
+    assert.equal(Object.keys(e.directives).length,10);
   });
 
   describe('options',function(){
