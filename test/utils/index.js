@@ -3,10 +3,12 @@ var utils = {};
 
 utils.loadHTML = function(html){
   if(typeof document != 'undefined'){
-    document.body.innerHTML = html;
+    var container = document.createElement('div');
+    container.innerHTML = html;
+    document.body.appendChild(container);
     $ = document.$ = require('jquery');
     $.html = function(){
-      return document.body.innerHTML;
+      return container.innerHTML;
     }
     return $;
   } else {

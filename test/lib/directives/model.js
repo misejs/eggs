@@ -12,13 +12,13 @@ describe('eggs model directive',function(){
     $ = utils.loadHTML('<div><div id="content">\
         <input id="text" e-model="inputText" type="text"/>\
         <textarea id="textarea" e-model="textarea"></textarea>\
-        <select id="select" e-model="select"><option label="one" value="1"/><option label="two" value="2"/><option label="three" value="3"/></select>\
+        <select id="select" e-model="select"><option value="1">one</option><option value="2">two</option><option value="3">three</option></select>\
         <div e-model="editable" id="editable" contenteditable="true"></div>\
         <div id="noneditable">original</div>');
     function VM(){
       this.inputText = "input text";
       this.textarea = "textarea text";
-      this.select = "2";
+      this.select = 2;
       this.editable = "some content that is editable";
       this.noneditable = "nothing";
     }
