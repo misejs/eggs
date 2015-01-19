@@ -25,7 +25,12 @@ describe('eggs show directive',function(){
   it('should show an element if the value is truthy',function(done){
     vm.show = true;
     setTimeout(function(){
-      assert(!$('#showme').css('display'));
+      // cheerio & jquery differ in what they return here.
+      if(typeof document == 'undefined'){
+        assert(!$('#showme').css('display'));
+      } else {
+        assert.equal($('#showme').css('display'),'block');
+      }
       done();
     },utils.updateTimeout);
   });

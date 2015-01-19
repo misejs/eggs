@@ -1,16 +1,28 @@
 var assert = require('assert');
 var utils = {};
 
+var currentContainer;
+var current$;
+
 utils.loadHTML = function(html){
   if(typeof document != 'undefined'){
+    // clear out any previous container
+    if(currentContainer){
+      currentContainer.parentNode.removeChild(currentContainer);
+      currentContainer = null;
+    }
     var container = document.createElement('div');
     container.innerHTML = html;
     document.body.appendChild(container);
-    $ = document.$ = require('jquery');
-    $.html = function(){
-      return container.innerHTML;
+    currentContainer = container;
+    if(!current$){
+      var $ = document.$ = require('jquery');
+      $.html = function(){
+        return currentContainer.innerHTML;
+      }
+      current$ = $;
     }
-    return $;
+    return current$;
   } else {
     return require('cheerio').load(html);
   }

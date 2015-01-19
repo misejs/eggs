@@ -16,3 +16,4 @@ require('./lib/directives/text');
 
 // eggs
 require('./lib/eggs');
+require('./lib/parseOptions');
