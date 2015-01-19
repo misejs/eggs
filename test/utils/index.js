@@ -49,6 +49,15 @@ utils.click = function(element){
   (element.length ? element[0] : element).dispatchEvent(e);
 }
 
+utils.htmlEscape = function(str) {
+  return String(str)
+  .replace(/&/g, '&amp;')
+  .replace(/"/g, '&quot;')
+  .replace(/'/g, '&#39;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;');
+}
+
 utils.updateTimeout = Object.observe ? 0 : 110;
 
 module.exports = utils;

@@ -1,4 +1,3 @@
-
 // directives
 require('./lib/directives/attr');
 require('./lib/directives/class');
@@ -12,3 +11,4 @@ require('./lib/directives/text');
 
 // eggs
 require('./lib/eggs');
+require('./lib/parseOptions');
