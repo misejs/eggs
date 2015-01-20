@@ -30,7 +30,7 @@
     "virtual-dom": "git://github.com/misejs/virtual-dom#custom_attributes"
   },
   "devDependencies": {
-    "cheerio": "^0.17.0",
+    "cheerio": "^0.18.0",
     "jquery": "^2.1.1",
     "mocha": "^2.0.1",
     "zuul": "^1.16.3"
