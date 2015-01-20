@@ -28,12 +28,13 @@ utils.loadHTML = function(html){
   }
 }
 
-utils.type = function(element,text){
-  var e;
-  e = document.createEvent('TextEvent');
-  e.initTextEvent('textInput',true,true,null,text,9,"en-US");
-  (element.length ? element[0] : element).dispatchEvent(e);
-}
+// TODO: This works in chrome, but I can't seem to find an equivalent for other browsers.
+// utils.type = function($,element,text){
+//   var e;
+//   e = document.createEvent('TextEvent');
+//   e.initTextEvent('textInput',true,true,null,text,9,"en-US");
+//   (element.length ? element[0] : element).dispatchEvent(e);
+// }
 
 utils.change = function(element){
   var e;

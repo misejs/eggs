@@ -9,7 +9,7 @@
   "main": "lib/eggs.js",
   "scripts": {
     "test": "mocha --reporter spec --bail --slow 700 --check-leaks test/server.js",
-    "test-browser": "zuul --local 8080 -- test/browser.js & sleep 5 && open http://localhost:8080/__zuul && fg 1",
+    "test-browser": "zuul --local 8080 --open -- test/browser.js",
     "test-browser-cloud": "zuul -- test/browser.js",
     "test-travis-server": "./node_modules/.bin/mocha --reporter spec --bail --check-leaks test/server.js",
     "test-travis-browser": "zuul -- test/browser.js"

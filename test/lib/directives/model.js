@@ -83,8 +83,8 @@ describe('eggs model directive',function(){
 
       it('should set the correct value on the viewmodel for input fields',function(done){
         var t = 'text from client';
-        $('#text').attr('value','');
-        utils.type($('#text'),t);
+        $('#text').attr('value',t);
+        utils.change($('#text'));
         setTimeout(function(){
           assert.equal(vm.inputfield,t);
           done();

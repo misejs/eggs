@@ -46,4 +46,4 @@ module.exports = (function () {/*
 <a e-on="click:save">Save</a>
 
 </div>
-*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
+*/}).toString().match(/\/\*([^]*)\*\//)[1];

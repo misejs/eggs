@@ -6,7 +6,7 @@ browsers:
   - name: ie
     version: 6..latest
   - name: firefox
-    version: 3..latest
+    version: 33..latest
   - name: iphone
     version: 4.3..latest
   - name: ipad
