@@ -10,17 +10,19 @@ describe('eggs model directive',function(){
 
   before(function(){
     $ = utils.loadHTML('<div><div id="content">\
-        <input id="text" e-model="inputText" type="text"/>\
-        <textarea id="textarea" e-model="textarea"></textarea>\
-        <select id="select" e-model="select"><option label="one" value="1"/><option label="two" value="2"/><option label="three" value="3"/></select>\
-        <div e-model="editable" id="editable" contenteditable="true"></div>\
-        <div id="noneditable">original</div>');
+    <input id="text" e-model="inputfield" type="text"/>\
+    <textarea id="textarea" e-model="textarea"></textarea>\
+    <select id="select" e-model="select"><option value="1">one</option><option value="2">two</option><option value="3">three</option></select>\
+    <input id="checkbox" e-model="bool" type="checkbox"/>\
+    <div e-model="editable" id="editable" contenteditable="true"></div>\
+    <div id="noneditable">original</div>');
     function VM(){
-      this.inputText = "input text";
+      this.inputfield = "input text";
       this.textarea = "textarea text";
-      this.select = "2";
+      this.select = 2;
       this.editable = "some content that is editable";
       this.noneditable = "nothing";
+      this.bool = true;
     }
     e = eggs($,{selector : '#content'},VM);
     vm = e.viewModel;
@@ -41,6 +43,9 @@ describe('eggs model directive',function(){
     it('should set the correct value for select elements',function(){
       assert.equal($('#select').val(),'2');
     });
+    it('should set the correct value for checkbox elements',function(){
+      assert($('#checkbox').is(':checked'));
+    });
     it('should set the correct value for contenteditable elements',function(){
       assert.equal($('#editable').text(),'some content that is editable');
     });
@@ -50,22 +55,16 @@ describe('eggs model directive',function(){
   });
 
   describe('when changing the value on the viewModel',function(){
-    var out;
-    var old_vm;
+
     before(function(done){
-      old_vm = vm;
-      vm.inputText = 'new text';
+      vm.inputfield = 'new text';
       vm.textarea = 'new textarea';
       vm.select = '1';
       vm.editable = 'new editable';
+      vm.bool = false;
       setTimeout(function(){
-        out = $.html();
         done();
-      },200);
-    });
-
-    after(function(){
-      vm = old_vm;
+      },utils.updateTimeout);
     });
 
     it('should set the correct value for input fields',function(){
@@ -77,6 +76,9 @@ describe('eggs model directive',function(){
     it('should set the correct value for select elements',function(){
       assert.equal($('#select').val(),'1');
     });
+    it('should set the correct value for checkbox elements',function(){
+      assert(!$('#checkbox').is(':checked'));
+    });
     it('should set the correct value for contenteditable elements',function(){
       assert.equal($('#editable').text(),'new editable');
     });
@@ -87,35 +89,43 @@ describe('eggs model directive',function(){
 
   if(typeof window != 'undefined'){
     describe('when setting values via the UI',function(){
+
       it('should set the correct value on the viewmodel for input fields',function(done){
         var t = 'text from client';
-        $('#text').val('');
+        $('#text').attr('value',t);
+        utils.change($('#text'));
         setTimeout(function(){
-          utils.type($('#text'),t);
-          setTimeout(function(){
-            assert.equal(vm.inputText,t);
-            done();
-          },utils.updateTimeout);
+          assert.equal(vm.inputfield,t);
+          done();
         },utils.updateTimeout);
       });
       it('should set the correct value on the viewmodel for textareas',function(done){
         var t = 'textarea new text';
         $('#textarea').val(t);
+        utils.change($('#textarea'));
         setTimeout(function(){
-          utils.change($('#textarea'));
-          setTimeout(function(){
-            assert.equal(vm.textarea,t);
-            done();
-          },utils.updateTimeout);
+          assert.equal(vm.textarea,t);
+          done();
         },utils.updateTimeout);
       });
       it('should set the correct value on the viewmodel for select elements',function(done){
         var t = '3';
         $('#select').val(t);
+        utils.change($('#select'));
         setTimeout(function(){
-          utils.change($('#select'));
+          assert.equal(vm.select,t);
+          done();
+        },utils.updateTimeout);
+      });
+      it('should set the correct value on the viewmodel for checkbox elements',function(done){
+        $('#checkbox').attr('checked',true);
+        utils.change($('#checkbox'));
+        setTimeout(function(){
+          assert.equal(vm.bool,true);
+          $('#checkbox').attr('checked',false);
+          utils.change($('#checkbox'));
           setTimeout(function(){
-            assert.equal(vm.select,t);
+            assert.equal(vm.bool,false);
             done();
           },utils.updateTimeout);
         },utils.updateTimeout);
@@ -123,12 +133,10 @@ describe('eggs model directive',function(){
       it('should set the correct value on the viewmodel for contenteditable elements',function(done){
         var t = 'contenteditable text';
         $('#editable').text(t);
+        utils.change($('#editable'));
         setTimeout(function(){
-          utils.change($('#editable'));
-          setTimeout(function(){
-            assert.equal(vm.editable,t);
-            done();
-          },utils.updateTimeout);
+          assert.equal(vm.editable,t);
+          done();
         },utils.updateTimeout);
       });
     });

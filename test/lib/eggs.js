@@ -4,36 +4,34 @@ var eggs = require('../../lib/eggs');
 var utils = require('../utils');
 
 describe('eggs',function(){
-  var $;
-
-  before(function(){
-    $ = utils.loadHTML('<html>');
-  });
 
   it('should create a new instance of eggs when called',function(){
-    var e = eggs($,function(){});
+    var $ = utils.loadHTML('<div id="one"></div><div id="two"></div>');
+    var e = eggs($,'#one',function(){});
     e.someproperty = 'something';
-    e = eggs($,function(){});
+    e = eggs($,'#two',function(){});
     assert(!e.someproperty);
   });
 
   it('should have the built-in directives',function(){
-    var e = eggs($,function(){});
-    assert.equal(Object.keys(e.directives).length,9);
+    var $ = utils.loadHTML('<div id="pork">');
+    var e = eggs($,'#pork',function(){});
+    assert.equal(Object.keys(e.directives).length,10);
   });
 
   describe('options',function(){
 
     describe('when adding custom directives',function(){
+      var $;
 
       it('should properly update the directive when data updates',function(){
         var lastValue;
         var customDirective = function(key,val,el){
           lastValue = val;
         };
-        var $ = utils.loadHTML('<div><div e-directive="test">');
+        $ = utils.loadHTML('<div id="pork"><div e-directive="test">');
         function Model(){ this.test = 'pork'; };
-        var e = eggs($,{ directives : {'directive' : customDirective } },Model);
+        var e = eggs($,{ selector: '#pork', directives : {'directive' : customDirective } },Model);
         assert.equal(lastValue,'pork');
         e.viewModel.test = 'pie';
         assert(lastValue,'pie');
@@ -42,6 +40,7 @@ describe('eggs',function(){
       it('should throw an error if you try to override an existing directive',function(){
         assert.throws(function(){
           eggs($,{
+            selector: '#pork',
             directives : {
               'attr' : {}
             }
@@ -52,6 +51,7 @@ describe('eggs',function(){
       it('should allow overriding if the directive specifies it',function(){
         assert.doesNotThrow(function(){
           eggs($,{
+            selector: '#pork',
             directives : {
               'attr' : { override : true }
             }
@@ -65,10 +65,10 @@ describe('eggs',function(){
 
       it('should use that prefix for existing directives',function(){
         var lastValue;
-        var $ = utils.loadHTML('<div><div foo-text="test">');
+        var $ = utils.loadHTML('<div id="pork"><div foo-text="test">');
         function Model(){ this.test = 'pork'; };
-        var e = eggs($,{prefix:'foo'},Model);
-        assert.equal($.html(),'<div><div foo-text="test">pork</div></div>');
+        var e = eggs($,{ selector: '#pork', prefix:'foo'},Model);
+        assert.equal($.html(),'<div id="pork"><div foo-text="test">pork</div></div>');
       });
 
     });
@@ -104,32 +104,25 @@ describe('eggs',function(){
       });
     });
 
-    it('should call back even when not given options',function(done){
-      eggs($,VM,function(){
-        assert.equal($.html(),finishedHTML);
-        done();
-      });
-    });
   });
 
   describe('arguments',function(){
+    var $;
+
+    beforeEach(function(){
+      $ = utils.loadHTML('<div id="pork">');
+    });
 
     it('should throw when viewmodel is absent',function(){
       assert.throws(function(){
-        eggs($);
+        eggs($,'#pork');
       },'ViewModels must be functions');
     });
 
     it('should throw when viewmodel is not a function',function(){
       assert.throws(function(){
-        eggs($,{});
+        eggs($,'#pork',{});
       },'ViewModels must be functions');
-    });
-
-    it('should accept an options argument if passed before the viewmodel arg',function(){
-      assert.doesNotThrow(function(){
-        eggs($,{},function(){});
-      });
     });
 
     it('should throw an exception if $ is not valid',function(){

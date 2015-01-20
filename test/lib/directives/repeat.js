@@ -55,11 +55,11 @@ describe('eggs repeat directive',function(){
       },utils.updateTimeout);
     });
     it('should replace html when replacing the array',function(done){
-      vm.items = [ { text : 'new item' } ];
+      vm.items = [ { key : 'new item' } ];
       setTimeout(function(){
         var els = $('#ul').children();
         assert.equal(els.length,1);
-        assert(els.first().find('h3').text(),'new item');
+        assert.equal(els.first().find('h3').text(),'new item');
         done();
       },utils.updateTimeout);
     });
@@ -67,16 +67,16 @@ describe('eggs repeat directive',function(){
       vm.items = [];
       setTimeout(function(){
         assert.equal($('#ul').children().length,0);
-        vm.items.push({ text : 'pushed one' });
+        vm.items.push({ key : 'pushed one' });
         setTimeout(function(){
           var els = $('#ul').children();
           assert.equal(els.length,1);
-          assert(els.first().find('h3').text(),'pushed one');
-          vm.items.push({ text : 'pushed two' });
+          assert.equal(els.first().find('h3').text(),'pushed one');
+          vm.items.push({ key : 'pushed two' });
           setTimeout(function(){
             var els = $('#ul').children();
             assert.equal(els.length,2);
-            assert(els.last().find('h3').text(),'pushed two');
+            assert.equal(els.last().find('h3').text(),'pushed two');
             done();
           },utils.updateTimeout);
         },utils.updateTimeout);

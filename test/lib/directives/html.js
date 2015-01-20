@@ -9,7 +9,7 @@ describe('eggs html directive',function(){
   var vm;
 
   before(function(){
-    $ = utils.loadHTML('<div><div e-html="html"><div id="content"><div e-html="html"></div>');
+    $ = utils.loadHTML('<div id="content"><div e-html="html"></div>');
     function VM(){
       this.html = '<a href="http://prixfixeapp.com"></a>';
     };
@@ -18,7 +18,7 @@ describe('eggs html directive',function(){
   });
 
   it('should set the html of the div with the directive',function(){
-    assert(/<div e-html="html"><a href="http:\/\/prixfixeapp.com"><\/a><\/div>/.test($.html()));
+    assert.equal('<div e-html="html"><a href="http://prixfixeapp.com"></a></div>',$('#content').html());
   });
 
 });
