@@ -56,4 +56,33 @@ describe('eggs attr directive',function(){
     },utils.updateTimeout);
   });
 
+  describe.only('when changing specific attributes',function(){
+    var $;
+    var e;
+    var vm;
+
+    before(function(){
+      $ = utils.loadHTML('<div id="container">\
+        <input id="input" e-attr="type:type"/>\
+      ');
+      function VM(){
+        this.type = 'checkbox';
+      };
+      e = eggs($,{selector : '#container'},VM);
+      vm = e.viewModel;
+    });
+
+    it('should have the correct type attribute when changing type',function(){
+      assert.equal($('#input').attr('type'),'checkbox');
+    });
+
+    it('should be able to change the type when on the client',function(done){
+      vm.type = 'password';
+      setTimeout(function(){
+        assert.equal($('#input').attr('type'),'password');
+        done();
+      },utils.updateTimeout);
+    });
+  });
+
 });
