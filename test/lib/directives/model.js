@@ -13,6 +13,7 @@ describe('eggs model directive',function(){
     <input id="text" e-model="inputfield" type="text"/>\
     <textarea id="textarea" e-model="textarea"></textarea>\
     <select id="select" e-model="select"><option value="1">one</option><option value="2">two</option><option value="3">three</option></select>\
+    <input id="checkbox" e-model="bool" type="checkbox"/>\
     <div e-model="editable" id="editable" contenteditable="true"></div>\
     <div id="noneditable">original</div>');
     function VM(){
@@ -21,6 +22,7 @@ describe('eggs model directive',function(){
       this.select = 2;
       this.editable = "some content that is editable";
       this.noneditable = "nothing";
+      this.bool = true;
     }
     e = eggs($,{selector : '#content'},VM);
     vm = e.viewModel;
@@ -41,6 +43,9 @@ describe('eggs model directive',function(){
     it('should set the correct value for select elements',function(){
       assert.equal($('#select').val(),'2');
     });
+    it('should set the correct value for checkbox elements',function(){
+      assert($('#checkbox').is(':checked'));
+    });
     it('should set the correct value for contenteditable elements',function(){
       assert.equal($('#editable').text(),'some content that is editable');
     });
@@ -56,6 +61,7 @@ describe('eggs model directive',function(){
       vm.textarea = 'new textarea';
       vm.select = '1';
       vm.editable = 'new editable';
+      vm.bool = false;
       setTimeout(function(){
         done();
       },utils.updateTimeout);
@@ -69,6 +75,9 @@ describe('eggs model directive',function(){
     });
     it('should set the correct value for select elements',function(){
       assert.equal($('#select').val(),'1');
+    });
+    it('should set the correct value for checkbox elements',function(){
+      assert(!$('#checkbox').is(':checked'));
     });
     it('should set the correct value for contenteditable elements',function(){
       assert.equal($('#editable').text(),'new editable');
@@ -106,6 +115,19 @@ describe('eggs model directive',function(){
         setTimeout(function(){
           assert.equal(vm.select,t);
           done();
+        },utils.updateTimeout);
+      });
+      it('should set the correct value on the viewmodel for checkbox elements',function(done){
+        $('#checkbox').attr('checked',true);
+        utils.change($('#checkbox'));
+        setTimeout(function(){
+          assert.equal(vm.bool,true);
+          $('#checkbox').attr('checked',false);
+          utils.change($('#checkbox'));
+          setTimeout(function(){
+            assert.equal(vm.bool,false);
+            done();
+          },utils.updateTimeout);
         },utils.updateTimeout);
       });
       it('should set the correct value on the viewmodel for contenteditable elements',function(done){
