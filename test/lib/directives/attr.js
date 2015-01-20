@@ -56,7 +56,7 @@ describe('eggs attr directive',function(){
     },utils.updateTimeout);
   });
 
-  describe.only('when changing specific attributes',function(){
+  describe('when changing specific attributes',function(){
     var $;
     var e;
     var vm;
