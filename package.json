@@ -22,6 +22,7 @@
   "author": "Jesse Ditson <jesse.ditson@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^0.18.0",
     "async": "^0.9.0",
     "ejs": "^1.0.0",
     "ev-store": "^7.0.0",
@@ -30,7 +31,6 @@
     "virtual-dom": "git://github.com/misejs/virtual-dom#custom_attributes"
   },
   "devDependencies": {
-    "cheerio": "^0.18.0",
     "jquery": "^2.1.1",
     "mocha": "^2.0.1",
     "zuul": "^1.16.3"
