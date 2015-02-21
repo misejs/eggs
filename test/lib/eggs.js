@@ -6,35 +6,36 @@ var utils = require('../utils');
 describe('eggs',function(){
 
   it('should create a new instance of eggs when called',function(){
-    var $ = utils.loadHTML('<div id="one"></div><div id="two"></div>');
-    var e = eggs($,'#one',function(){});
+    var html = '<div><div id="one"></div><div id="two"></div></div>';
+    var e = eggs(html,'#one',function(){});
     e.someproperty = 'something';
-    e = eggs($,'#two',function(){});
+    e = eggs(html,'#two',function(){});
     assert(!e.someproperty);
   });
 
   it('should have the built-in directives',function(){
-    var $ = utils.loadHTML('<div id="pork">');
-    var e = eggs($,'#pork',function(){});
+    var e = eggs('<div id="pork"></pork>','#pork',function(){});
     assert.equal(Object.keys(e.directives).length,10);
   });
 
-  describe('options',function(){
+  describe.only('options',function(){
 
     describe('when adding custom directives',function(){
-      var $;
 
-      it('should properly update the directive when data updates',function(){
+      it('should properly update the directive when data updates',function(done){
         var lastValue;
         var customDirective = function(key,val,el){
           lastValue = val;
         };
-        $ = utils.loadHTML('<div id="pork"><div e-directive="test">');
+        var html = '<div id="pork"><div e-directive="test"></div></div>';
         function Model(){ this.test = 'pork'; };
-        var e = eggs($,{ selector: '#pork', directives : {'directive' : customDirective } },Model);
-        assert.equal(lastValue,'pork');
-        e.viewModel.test = 'pie';
-        assert(lastValue,'pie');
+        var e;
+        e = eggs(html,{ selector: '#pork', directives : {'directive' : customDirective } },Model,function(){
+          assert.equal(lastValue,'pork');
+          e.viewModel.test = 'pie';
+          assert(lastValue,'pie');
+          done();
+        });
       });
 
       it('should throw an error if you try to override an existing directive',function(){

@@ -22,13 +22,13 @@
   "author": "Jesse Ditson <jesse.ditson@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "^0.18.0",
     "async": "^0.9.0",
-    "ejs": "^1.0.0",
-    "ev-store": "^7.0.0",
-    "express-layout": "git://github.com/misejs/express-layout#views_array_support",
+    "html-to-vdom": "^0.5.4",
     "observe-js": "^0.4.2",
-    "virtual-dom": "git://github.com/misejs/virtual-dom#custom_attributes"
+    "value-event": "^5.0.0",
+    "vdom-to-html": "^1.2.4",
+    "virtual-dom": "~1.1.0",
+    "vtree-select": "^1.0.3"
   },
   "devDependencies": {
     "jquery": "^2.1.1",
