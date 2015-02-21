@@ -18,7 +18,7 @@ describe('eggs',function(){
     assert.equal(Object.keys(e.directives).length,10);
   });
 
-  describe.only('options',function(){
+  describe('options',function(){
 
     describe('when adding custom directives',function(){
 
@@ -40,7 +40,7 @@ describe('eggs',function(){
 
       it('should throw an error if you try to override an existing directive',function(){
         assert.throws(function(){
-          eggs($,{
+          eggs('<div id="pork"></div>',{
             selector: '#pork',
             directives : {
               'attr' : {}
@@ -51,7 +51,7 @@ describe('eggs',function(){
 
       it('should allow overriding if the directive specifies it',function(){
         assert.doesNotThrow(function(){
-          eggs($,{
+          eggs('<div id="pork"></div>',{
             selector: '#pork',
             directives : {
               'attr' : { override : true }
@@ -64,24 +64,26 @@ describe('eggs',function(){
 
     describe('when setting a custom prefix', function(){
 
-      it('should use that prefix for existing directives',function(){
+      it('should use that prefix for existing directives',function(done){
         var lastValue;
-        var $ = utils.loadHTML('<div id="pork"><div foo-text="test">');
         function Model(){ this.test = 'pork'; };
-        var e = eggs($,{ selector: '#pork', prefix:'foo'},Model);
-        assert.equal($.html(),'<div id="pork"><div foo-text="test">pork</div></div>');
+        var e = eggs('<div id="pork"><div foo-text="test"></div></div>',{ selector: '#pork', prefix:'foo'},Model,function(){
+          assert.equal(e.html(),'<div id="pork"><div foo-text="test">pork</div></div>');
+          done();
+        });
       });
 
     });
 
     describe('when setting a selector', function(){
 
-      it('should be constrained to elements inside of that selector',function(){
-        var lastValue;
-        var $ = utils.loadHTML('<div><div e-text="test"><div id="pork"><div e-text="test">');
+      it('should be constrained to elements inside of that selector',function(done){
+        var html = '<div><div e-text="test"><div id="pork"><div e-text="test"></div></div></div></div>';
         function Model(){ this.test = 'pork'; };
-        var e = eggs($,{selector:'#pork'},Model);
-        assert.equal($.html(),'<div><div e-text="test"><div id="pork"><div e-text="test">pork</div></div></div></div>');
+        var e = eggs(html,{selector:'#pork'},Model,function(){
+          assert.equal(e.html(),'<div><div e-text="test"><div id="pork"><div e-text="test">pork</div></div></div></div>');
+          done();
+        });
       });
     });
 

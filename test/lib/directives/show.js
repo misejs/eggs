@@ -4,20 +4,20 @@ var eggs = require('../../../lib/eggs');
 var utils = require('../../utils');
 
 describe('eggs show directive',function(){
-  var $;
   var e;
   var vm;
 
-  before(function(){
-    $ = utils.loadHTML('<div><div e-html="html"><div id="content"><div id="showme" e-show="show"></div>');
-    e = eggs($,{selector : '#content'},function(){});
+  before(function(ready){
+    var html = '<div><div e-html="html"><div id="content"><div id="showme" e-show="show"></div></div></div></div>';
+    e = eggs(html,{selector : '#content'},function(){},ready);
     vm = e.viewModel;
   });
 
   it('should hide an element if the value is falsey',function(done){
     vm.show = false;
     setTimeout(function(){
-      assert.equal($('#showme').css('display'),'none');
+      var show = utils.toHTML(utils.findNode(e.html(),'#showme')[0]);
+      assert.ok(/display: none;/.test(show));
       done();
     },utils.updateTimeout);
   });
@@ -25,12 +25,8 @@ describe('eggs show directive',function(){
   it('should show an element if the value is truthy',function(done){
     vm.show = true;
     setTimeout(function(){
-      // cheerio & jquery differ in what they return here.
-      if(typeof document == 'undefined'){
-        assert(!$('#showme').css('display'));
-      } else {
-        assert.equal($('#showme').css('display'),'block');
-      }
+      var show = utils.toHTML(utils.findNode(e.html(),'#showme')[0]);
+      assert.ok(!/display/.test(show));
       done();
     },utils.updateTimeout);
   });

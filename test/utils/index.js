@@ -1,7 +1,20 @@
+var select = require('vtree-select');
+var virtualize = require('../../lib/vdom/virtualize');
+var stringify = require('vdom-to-html');
 var assert = require('assert');
 var utils = {};
 
 var currentContainer;
+
+utils.findNode = function(html,selector){
+  var v = html;
+  if(typeof html === 'string') v = virtualize(html);
+  return select(selector)(v);
+};
+
+utils.toHTML = function(node){
+  return stringify(node);
+};
 
 utils.change = function(element){
   var e;

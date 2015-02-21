@@ -4,15 +4,17 @@ var eggs = require('../../../lib/eggs');
 var utils = require('../../utils');
 
 describe('eggs repeat directive',function(){
-  var $;
   var e;
   var vm;
 
-  before(function(){
-    $ = utils.loadHTML('<div id="content">\
+  before(function(ready){
+    var html = '<div id="content">\
       <ul id="ul" e-repeat="items">\
         <li>\
-          <h3 e-text="key"></h3>');
+          <h3 e-text="key"></h3>\
+        </li>\
+      </ul>\
+    </div>';
     function VM(){
       this.items = [
         { key : 'item one' },
@@ -20,16 +22,18 @@ describe('eggs repeat directive',function(){
         { key : 'item three' }
       ]
     };
-    e = eggs($,{selector : '#content'},VM);
+    e = eggs(html,{selector : '#content'},VM,ready);
     vm = e.viewModel;
   });
 
   it('should create the proper number of children',function(){
-    assert.equal($('#ul').children().length,3);
+    var ul = utils.findNode(e.html(),'#ul')[0];
+    assert.equal(ul.children.length,3);
   });
 
   it('should evaluate each child in the correct context',function(){
-    $('#ul').children().each(function(idx,child){
+    var ul = utils.findNode(e.html(),'#ul')[0];
+    ul.children.forEach(function(child,idx){
       var text;
       switch(idx){
         case 0:
@@ -42,7 +46,9 @@ describe('eggs repeat directive',function(){
           text='item three';
           break;
       }
-      assert($(child).find('h3').text(),text);
+      var h3 = utils.findNode(child,'h3')[0];
+      var h3text = h3.children[0].text;
+      assert(h3text,text);
     });
   });
 
@@ -50,33 +56,44 @@ describe('eggs repeat directive',function(){
     it('should remove the DOM element when removing an item',function(done){
       vm.items.pop();
       setTimeout(function(){
-        assert.equal($('#ul').children().length,2);
+        var ul = utils.findNode(e.html(),'#ul')[0];
+        assert.equal(ul.children.length,2);
         done();
       },utils.updateTimeout);
     });
     it('should replace html when replacing the array',function(done){
       vm.items = [ { key : 'new item' } ];
       setTimeout(function(){
-        var els = $('#ul').children();
+        var ul = utils.findNode(e.html(),'#ul')[0];
+        var els = ul.children;
         assert.equal(els.length,1);
-        assert.equal(els.first().find('h3').text(),'new item');
+        var h3 = utils.findNode(els[0],'h3')[0];
+        var h3text = h3.children[0].text;
+        assert.equal(h3text,'new item');
         done();
       },utils.updateTimeout);
     });
     it('should be able to add even if no DOM elements exist',function(done){
       vm.items = [];
       setTimeout(function(){
-        assert.equal($('#ul').children().length,0);
+        var ul = utils.findNode(e.html(),'#ul')[0];
+        assert.equal(ul.children.length,0);
         vm.items.push({ key : 'pushed one' });
         setTimeout(function(){
-          var els = $('#ul').children();
+          var ul = utils.findNode(e.html(),'#ul')[0];
+          var els = ul.children;
           assert.equal(els.length,1);
-          assert.equal(els.first().find('h3').text(),'pushed one');
+          var h3 = utils.findNode(els[0],'h3')[0];
+          var h3text = h3.children[0].text;
+          assert.equal(h3text,'pushed one');
           vm.items.push({ key : 'pushed two' });
           setTimeout(function(){
-            var els = $('#ul').children();
+            var ul = utils.findNode(e.html(),'#ul')[0];
+            var els = ul.children;
             assert.equal(els.length,2);
-            assert.equal(els.last().find('h3').text(),'pushed two');
+            var h3 = utils.findNode(els[1],'h3')[0];
+            var h3text = h3.children[0].text;
+            assert.equal(h3text,'pushed two');
             done();
           },utils.updateTimeout);
         },utils.updateTimeout);
