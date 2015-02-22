@@ -2,6 +2,7 @@
 require('./lib/directives/attr');
 require('./lib/directives/class');
 require('./lib/directives/html');
+require('./lib/directives/if');
 require('./lib/directives/model');
 require('./lib/directives/on');
 require('./lib/directives/repeat');

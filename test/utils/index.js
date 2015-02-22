@@ -1,40 +1,37 @@
+var select = require('vtree-select');
+var virtualize = require('../../lib/virtualize').html;
+var stringify = require('vdom-to-html');
 var assert = require('assert');
 var utils = {};
 
 var currentContainer;
-var current$;
 
-utils.loadHTML = function(html){
-  if(typeof document != 'undefined'){
-    // clear out any previous container
-    if(currentContainer){
-      currentContainer.parentNode.removeChild(currentContainer);
-      currentContainer = null;
-    }
-    var container = document.createElement('div');
-    container.innerHTML = html;
-    document.body.appendChild(container);
-    currentContainer = container;
-    if(!current$){
-      var $ = document.$ = require('jquery');
-      $.html = function(){
-        return currentContainer.innerHTML;
-      }
-      current$ = $;
-    }
-    return current$;
-  } else {
-    return require('cheerio').load(html);
-  }
-}
+utils.findNode = function(html,selector){
+  var v = html;
+  if(typeof html === 'string') v = virtualize(html);
+  return select(selector)(v);
+};
 
-// TODO: This works in chrome, but I can't seem to find an equivalent for other browsers.
-// utils.type = function($,element,text){
-//   var e;
-//   e = document.createEvent('TextEvent');
-//   e.initTextEvent('textInput',true,true,null,text,9,"en-US");
-//   (element.length ? element[0] : element).dispatchEvent(e);
-// }
+utils.toHTML = function(node){
+  return stringify(node);
+};
+
+// NOTE: this does not actually test the input event, but it fires an equal number of change events. It'll do for now.
+var typeChar = function(char,element){
+  element.value = element.value + char;
+  utils.change(element);
+};
+
+utils.type = function(element,text){
+  var element = element.length ? element[0] : element;
+  element.value = "";
+  var i = setInterval(function(){
+    if(!text.length) clearInterval(i);
+    typeChar(text[0],element);
+    text = text.slice(1);
+  },25);
+  return (text.length+1) * 25;
+};
 
 utils.change = function(element){
   var e;
@@ -72,10 +69,6 @@ utils.htmlEscape = function(str) {
   .replace(/'/g, '&#39;')
   .replace(/</g, '&lt;')
   .replace(/>/g, '&gt;');
-}
-
-utils.outerHTML = function($,element){
-  return $('<p>').append(element.clone()).html();
 }
 
 utils.updateTimeout = Object.observe ? 0 : 110;
