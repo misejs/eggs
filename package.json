@@ -30,6 +30,7 @@
     "setimmediate": "^1.0.2",
     "value-event": "^5.0.0",
     "vdom-to-html": "^1.2.4",
+    "vdom-virtualize": "0.0.6",
     "virtual-dom": "~1.1.0",
     "vtree-select": "jesseditson/vtree-select#custom_attributes"
   },

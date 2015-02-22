@@ -1,5 +1,5 @@
 var select = require('vtree-select');
-var virtualize = require('../../lib/virtualize');
+var virtualize = require('../../lib/virtualize').html;
 var stringify = require('vdom-to-html');
 var assert = require('assert');
 var utils = {};
