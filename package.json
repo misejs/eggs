@@ -35,8 +35,10 @@
     "vtree-select": "jesseditson/vtree-select#custom_attributes"
   },
   "devDependencies": {
+    "express": "^4.11.2",
     "jquery": "^2.1.1",
     "mocha": "^2.1.0",
+    "supertest": "^0.15.0",
     "zuul": "^1.16.3"
   }
 }
