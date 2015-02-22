@@ -9,13 +9,14 @@ describe('eggs model directive',function(){
   var vm;
 
   before(function(ready){
-    var html = '<div><div id="content">\
+    var html = '<div><div id="modelui-content">\
     <input id="text" e-model="inputfield" type="text"/>\
     <textarea id="textarea" e-model="textarea"></textarea>\
     <select id="select" e-model="select"><option value="1">one</option><option value="2">two</option><option value="3">three</option></select>\
     <input id="checkbox" e-model="bool" type="checkbox"/>\
     <div id="noneditable">original</div>\
     </div>';
+    $('body').append(html);
     function VM(){
       this.inputfield = 'input text';
       this.textarea = 'textarea text';
@@ -23,15 +24,12 @@ describe('eggs model directive',function(){
       this.noneditable = 'nothing';
       this.bool = true;
     }
-    e = eggs(html,{selector : '#content'},VM,function(){
-      $('body').append(e.html());
-      ready();
-    });
+    e = eggs({selector : '#modelui-content'},VM,ready);
     vm = e.viewModel;
   });
 
   after(function(){
-    $('body').find('#content').remove();
+    $('body').find('#modelui-content').remove();
   });
 
   describe('when setting values via the UI',function(){
@@ -39,11 +37,11 @@ describe('eggs model directive',function(){
       it('should set the correct value on the viewmodel for input fields',function(done){
         var t = 'text from client';
         $('#text').attr('value',t);
-        utils.change($('#text'));
+        var timeout = utils.type($('#text'),t);
         setTimeout(function(){
           assert.equal(vm.inputfield,t);
           done();
-        },utils.updateTimeout);
+        },timeout);
       });
       it('should set the correct value on the viewmodel for textareas',function(done){
         var t = 'textarea new text';

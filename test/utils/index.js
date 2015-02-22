@@ -16,6 +16,23 @@ utils.toHTML = function(node){
   return stringify(node);
 };
 
+// NOTE: this does not actually test the input event, but it fires an equal number of change events. It'll do for now.
+var typeChar = function(char,element){
+  element.value = element.value + char;
+  utils.change(element);
+};
+
+utils.type = function(element,text){
+  var element = element.length ? element[0] : element;
+  element.value = "";
+  var i = setInterval(function(){
+    if(!text.length) clearInterval(i);
+    typeChar(text[0],element);
+    text = text.slice(1);
+  },25);
+  return (text.length+1) * 25;
+};
+
 utils.change = function(element){
   var e;
   try {
