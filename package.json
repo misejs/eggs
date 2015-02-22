@@ -1,10 +1,18 @@
 {
   "name": "eggs",
-  "version": "0.0.0",
-  "description": "A client side variable binding module, part of the mise.js suite. Basically DOM sugar on top of watch.js",
+  "version": "0.1.0",
+  "description": "An isomorphic html data binding module, part of the mise.js suite.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/misejs/eggs.git"
+  },
   "main": "lib/eggs.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec --bail --slow 700 --check-leaks test/server.js",
+    "test-browser": "zuul --local 8080 --open -- test/browser.js",
+    "test-browser-cloud": "zuul -- test/browser.js",
+    "test-travis-server": "./node_modules/.bin/mocha --reporter spec --bail --check-leaks test/server.js",
+    "test-travis-browser": "zuul -- test/browser.js"
   },
   "keywords": [
     "data",
@@ -13,5 +21,22 @@
   ],
   "author": "Jesse Ditson <jesse.ditson@gmail.com>",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "async": "^0.9.0",
+    "event-sinks": "^2.2.0",
+    "html-delegator": "^1.0.1",
+    "html-to-vdom": "jesseditson/html-to-vdom#custom_attributes",
+    "observe-js": "^0.4.2",
+    "setimmediate": "^1.0.2",
+    "value-event": "^5.0.0",
+    "vdom-to-html": "^1.2.4",
+    "vdom-virtualize": "0.0.6",
+    "virtual-dom": "~1.1.0",
+    "vtree-select": "jesseditson/vtree-select#custom_attributes"
+  },
+  "devDependencies": {
+    "jquery": "^2.1.1",
+    "mocha": "^2.1.0",
+    "zuul": "^1.16.3"
+  }
 }
