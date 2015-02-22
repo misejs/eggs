@@ -90,19 +90,18 @@ describe('eggs',function(){
   });
 
   describe('instantiation',function(){
-    var $;
+    var html = '<div id="pork"><div e-text="test">';
     var e;
     var VM;
     var finishedHTML = '<div id="pork"><div e-text="test">pork</div></div>';
 
     beforeEach(function(){
-      $ = utils.loadHTML('<div id="pork"><div e-text="test">');
       VM = function(){ this.test = 'pork'; };
     });
 
     it('should call back after viewmodel is set up',function(done){
-      eggs($,{selector:'#pork'},VM,function(){
-        assert.equal($.html(),finishedHTML);
+      e = eggs(html,{selector:'#pork'},VM,function(){
+        assert.equal(e.html(),finishedHTML);
         done();
       });
     });
@@ -110,21 +109,17 @@ describe('eggs',function(){
   });
 
   describe('arguments',function(){
-    var $;
-
-    beforeEach(function(){
-      $ = utils.loadHTML('<div id="pork">');
-    });
+    var html = '<div id="pork">';
 
     it('should throw when viewmodel is absent',function(){
       assert.throws(function(){
-        eggs($,'#pork');
+        eggs(html,'#pork');
       },'ViewModels must be functions');
     });
 
     it('should throw when viewmodel is not a function',function(){
       assert.throws(function(){
-        eggs($,'#pork',{});
+        eggs(html,'#pork',{});
       },'ViewModels must be functions');
     });
 

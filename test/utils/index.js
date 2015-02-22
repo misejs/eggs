@@ -1,5 +1,5 @@
 var select = require('vtree-select');
-var virtualize = require('../../lib/vdom/virtualize');
+var virtualize = require('../../lib/virtualize');
 var stringify = require('vdom-to-html');
 var assert = require('assert');
 var utils = {};
@@ -52,10 +52,6 @@ utils.htmlEscape = function(str) {
   .replace(/'/g, '&#39;')
   .replace(/</g, '&lt;')
   .replace(/>/g, '&gt;');
-}
-
-utils.outerHTML = function($,element){
-  return $('<p>').append(element.clone()).html();
 }
 
 utils.updateTimeout = Object.observe ? 0 : 110;

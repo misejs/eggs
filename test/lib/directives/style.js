@@ -3,7 +3,7 @@ var assert = require('assert');
 var eggs = require('../../../lib/eggs');
 var utils = require('../../utils');
 
-describe.only('eggs style directive',function(){
+describe('eggs style directive',function(){
   var e;
   var vm;
 
