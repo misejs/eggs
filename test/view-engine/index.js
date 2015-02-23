@@ -48,6 +48,12 @@ describe('eggs view engine',function(){
         .get('/')
         .expect(200,/<h1 e-text="title">POOP<\/h1>/,done);
     });
+
+    it('should properly render the layout', function(done){
+      request(app)
+        .get('/')
+        .expect(200,/<body>/,done);
+    });
   });
 
 });
