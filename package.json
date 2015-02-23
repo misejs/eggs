@@ -26,6 +26,7 @@
     "event-sinks": "^2.2.0",
     "html-delegator": "^1.0.1",
     "html-to-vdom": "jesseditson/html-to-vdom#custom_attributes",
+    "merge": "^1.2.0",
     "observe-js": "^0.4.2",
     "setimmediate": "^1.0.2",
     "value-event": "^5.0.0",

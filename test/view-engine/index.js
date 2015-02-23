@@ -12,8 +12,15 @@ describe.only('eggs view engine',function(){
   var server;
 
   before(function(ready){
+
+    var routes = [];
+    routes.push({
+      selector : '#index',
+      viewmodel : require('../fixtures/viewmodels/index')
+    });
+
     app = express();
-    app.engine('html',eggs.__express);
+    app.engine('html',eggs.viewEngine(routes));
     app.set('views',path.join(__dirname,'../fixtures/views'));
     app.set('view engine','html');
 
