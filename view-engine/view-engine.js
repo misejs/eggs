@@ -8,16 +8,20 @@ var defaultViewmodelsDir = "public/javascripts";
 
 var render = function(filePath,options,html,callback){
   html = html.toString();
-  var routeMethods = options.routes.map(function(route){
-    return function(err,html,done){
-      var e = eggs(html,{selector : route.selector},route.viewmodel,done);
-    };
-  });
-  async.waterfall([function(done){
-      done(html);
-    }].concat(routeMethods),function(html){
-      callback(null,html);
+  var applyRoute = function(route,html,done){
+    eggs(html,{selector : route.selector},route.viewmodel,function(err,html){
+      done(err,html);
     });
+  };
+  var returnHtml = function(done){
+    done(null,html.trim());
+  };
+  var routeMethods = options.routes.map(function(route){
+    return applyRoute.bind(null,route);
+  });
+  async.waterfall([returnHtml].concat(routeMethods),function(err,html){
+    callback(err,html);
+  });
 };
 
 var engine = function(routes){

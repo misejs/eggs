@@ -42,6 +42,12 @@ describe.only('eggs view engine',function(){
         .expect('Content-Type', /text\/html/)
         .expect(200, done);
     });
+
+    it('should have properly parsed the eggs tag', function(done){
+      request(app)
+        .get('/')
+        .expect(200,/<h1 e-text="title">POOP<\/h1>/,done);
+    });
   });
 
 });
