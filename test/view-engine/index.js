@@ -54,6 +54,19 @@ describe('eggs view engine',function(){
         .get('/')
         .expect(200,/<body>/,done);
     });
+
+    it('should properly render partials', function(done){
+      request(app)
+        .get('/')
+        .expect(200,/class="partial"/,done);
+    });
+
+    it('should parse eggs in partials', function(done){
+      request(app)
+        .get('/')
+        .expect(200,/pork/,done);
+    });
+
   });
 
 });

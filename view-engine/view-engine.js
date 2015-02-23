@@ -5,9 +5,12 @@ var path = require('path');
 var eggs;
 
 var layoutCache = {};
+var partialCache = {};
 
-var layoutPattern = /e-layout="(\w+)"/ig;
+var layoutPattern = /<e-layout[\s]+\w+="([^"]+)"[^\/>]*\/?>/ig;
+var layoutClosePattern = /<\/e-layout>/i;
 var yieldPattern = /<e-yield[^\/>]*\/?>/ig;
+var yieldClosePattern = /<\/e-yield>/i;
 var renderLayout = function(basePath,html,callback){
   var match;
   var layout;
@@ -19,7 +22,7 @@ var renderLayout = function(basePath,html,callback){
   };
 
   if(layout){
-    html = html.replace(layoutAttr,'');
+    html = html.replace(layoutAttr,'').replace(layoutClosePattern,'');
     if(!/\./.test(layout)) layout = layout + '.html';
     var layoutPath = path.resolve(basePath,layout);
 
@@ -31,7 +34,7 @@ var renderLayout = function(basePath,html,callback){
         tag = match[0];
       };
       if(!tag) return callback(new Error('No yield tag found in layout file. Layouts must include a yield tag.'));
-      layoutStr = layoutStr.replace(tag,html);
+      layoutStr = layoutStr.replace(tag,html).replace(yieldClosePattern,'');
       var layoutDir = path.dirname(layoutPath);
       renderLayout(layoutDir,layoutStr,callback);
     };
@@ -49,8 +52,54 @@ var renderLayout = function(basePath,html,callback){
       });
     }
   } else {
-    callback(null,html);
+    callback(null,html.trim());
   }
+};
+
+var partialPattern = /<e-partial[\s]+\w+="([^"]+)"[^\/>]*\/?>/ig;
+var partialClosePattern = /<\/e-partial>/ig;
+var renderPartials = function(basePath,html,callback){
+  var match;
+  var partials=[];
+  while(match = partialPattern.exec(html)) {
+    partials.push({
+      tag : match[0],
+      path : match[1]
+    });
+  };
+
+  if(!partials.length){
+    return callback(null,html.trim());
+  }
+
+  html = html.replace(partialClosePattern,'');
+
+  async.forEach(partials,function(p,done){
+    var partialPath = p.path;
+    if(!/\./.test(partialPath)) partialPath = partialPath + '.html';
+    partialPath = path.resolve(basePath,partialPath);
+
+    var addPartial = function(partial){
+      html = html.replace(p.tag,partial);
+      var partialDir = path.dirname(partialPath);
+      renderPartials(partialPath,html,done);
+    };
+
+    if(partialCache[partialPath]){
+      addPartial(partialCache[partialPath]);
+    } else {
+      fs.exists(partialPath,function(exists){
+        if(!exists) return callback(new Error('Unable to find partial at ' + partialPath));
+        fs.readFile(partialPath,'utf8',function(err,partial){
+          var partial = partial.toString();
+          partialCache[partialPath] = partial;
+          addPartial(partial);
+        });
+      });
+    }
+  },function(err){
+    callback(err,html);
+  });
 };
 
 var render = function(filePath,options,html,callback){
@@ -62,10 +111,11 @@ var render = function(filePath,options,html,callback){
   };
   var basePath = path.dirname(filePath);
   var layout = renderLayout.bind(null,basePath,html);
+  var partials = renderPartials.bind(null,basePath);
   var routeMethods = options.routes.map(function(route){
     return applyRoute.bind(null,route);
   });
-  async.waterfall([layout].concat(routeMethods),function(err,html){
+  async.waterfall([layout,partials].concat(routeMethods),function(err,html){
     callback(err,html);
   });
 };
