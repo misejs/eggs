@@ -6,7 +6,7 @@ var express = require('express');
 var eggs = require('../../lib/eggs');
 var utils = require('../utils');
 
-describe.only('eggs view engine',function(){
+describe('eggs view engine',function(){
 
   var app;
   var server;
@@ -48,6 +48,25 @@ describe.only('eggs view engine',function(){
         .get('/')
         .expect(200,/<h1 e-text="title">POOP<\/h1>/,done);
     });
+
+    it('should properly render the layout', function(done){
+      request(app)
+        .get('/')
+        .expect(200,/<body>/,done);
+    });
+
+    it('should properly render partials', function(done){
+      request(app)
+        .get('/')
+        .expect(200,/class="partial"/,done);
+    });
+
+    it('should parse eggs in partials', function(done){
+      request(app)
+        .get('/')
+        .expect(200,/pork/,done);
+    });
+
   });
 
 });

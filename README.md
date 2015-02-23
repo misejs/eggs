@@ -2,12 +2,16 @@
 eggs
 =========
 
+Note: these docs are woefully out of date - once the API stabilizes, this issue (and this readme) will be updated: https://github.com/misejs/eggs/issues/3
+----
+
 *server rendering tests:*
 [![Build Status](https://travis-ci.org/misejs/eggs.svg)](https://travis-ci.org/misejs/eggs)
 
 *browser rendering tests:*
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/eggs.svg)](https://saucelabs.com/u/eggs)
 
+[![Dependencies](https://david-dm.org/misejs/eggs.svg)](https://david-dm.org/misejs/eggs)
 
 An isomorphic html data binding library, built for [mise.js](https://github.com/misejs/mise)
 
