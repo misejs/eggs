@@ -67,6 +67,12 @@ describe('eggs view engine',function(){
         .expect(200,/pork/,done);
     });
 
+    it('should preserve scripts', function(done){
+      request(app)
+        .get('/')
+        .expect(200,/script src=/,done);
+    });
+
   });
 
 });
