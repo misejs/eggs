@@ -25,7 +25,7 @@ describe('eggs view engine',function(){
     app.set('view engine','html');
 
     app.get('/',function(req,res){
-      res.render('index');
+      res.render('index', {passedParam : 'cheese!'});
     });
 
     server = app.listen(3333,ready);
@@ -71,6 +71,12 @@ describe('eggs view engine',function(){
       request(app)
         .get('/')
         .expect(200,/script src=/,done);
+    });
+
+    it('should pass the options to the view model', function(done){
+      request(app)
+        .get('/')
+        .expect(200,/p e-text="passedParam">cheese!</,done);
     });
 
   });

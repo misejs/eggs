@@ -105,7 +105,8 @@ var renderPartials = function(basePath,html,callback){
 var render = function(filePath,options,html,callback){
   html = html.toString().trim();
   var applyRoute = function(route,html,done){
-    eggs(html,{selector : route.selector},route.viewmodel,function(err,html){
+    options.selector = route.selector;
+    eggs(html,options,route.viewmodel,function(err,html){
       done(err,html);
     });
   };
