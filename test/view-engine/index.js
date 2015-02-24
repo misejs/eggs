@@ -6,7 +6,7 @@ var express = require('express');
 var eggs = require('../../lib/eggs');
 var utils = require('../utils');
 
-describe.only('eggs view engine',function(){
+describe('eggs view engine',function(){
 
   var app;
   var server;
