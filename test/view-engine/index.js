@@ -17,6 +17,9 @@ describe('eggs view engine',function(){
     routes.push({
       selector : '#index',
       viewmodel : require('../fixtures/viewmodels/index')
+    },{
+      selector : '#fake',
+      viewmodel : function(){}
     });
 
     app = express();
