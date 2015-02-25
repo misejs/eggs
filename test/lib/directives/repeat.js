@@ -101,4 +101,35 @@ describe('eggs repeat directive',function(){
     });
   });
 
+  describe('with existing server-populated data', function(){
+    var e;
+    var vm;
+
+    before(function(ready){
+      var html = '<div id="content">\
+        <ul id="ul" e-repeat="items" data-eggs-repeat-template="&lt;li&gt; &lt;h3 e-text=&quot;key&quot;&gt;&lt;/h3&gt; &lt;/li&gt;">\
+          <li>\
+            <h3 e-text="key">item one</h3>\
+            <h3 e-text="key">item two</h3>\
+            <h3 e-text="key">item three</h3>\
+          </li>\
+        </ul>\
+      </div>';
+      function VM(){
+        this.items = [
+          { key : 'item one' },
+          { key : 'item two' },
+          { key : 'item three' }
+        ]
+      };
+      e = eggs(html,{selector : '#content'},VM,ready);
+      vm = e.viewModel;
+    });
+
+    it('should have the proper number of children',function(){
+      var ul = utils.findNode(e.html(),'#ul')[0];
+      assert.equal(ul.children.length,3);
+    });
+  });
+
 });

@@ -66,7 +66,7 @@ var renderPartials = function(basePath,html,callback){
       tag : match[0],
       path : match[1]
     });
-  };
+  }
 
   if(!partials.length){
     return callback(null,html.trim());
@@ -81,8 +81,7 @@ var renderPartials = function(basePath,html,callback){
 
     var addPartial = function(partial){
       html = html.replace(p.tag,partial);
-      var partialDir = path.dirname(partialPath);
-      renderPartials(partialPath,html,done);
+      renderPartials(basePath,html,done);
     };
 
     if(partialCache[partialPath]){
