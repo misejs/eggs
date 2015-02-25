@@ -23,8 +23,6 @@
   "license": "ISC",
   "dependencies": {
     "async": "^0.9.0",
-    "event-sinks": "^2.2.0",
-    "html-delegator": "^1.0.1",
     "html-to-vdom": "jesseditson/html-to-vdom#master",
     "observe-js": "^0.4.2",
     "setimmediate": "^1.0.2",

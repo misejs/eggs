@@ -29,7 +29,7 @@ describe('eggs model directive',function(){
   });
 
   after(function(){
-    $('body').find('#modelui-content').remove();
+    // $('body').find('#modelui-content').remove();
   });
 
   describe('when setting values via the UI',function(){
