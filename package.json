@@ -1,6 +1,6 @@
 {
   "name": "eggs",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "An isomorphic html data binding module, part of the mise.js suite.",
   "repository": {
     "type": "git",
