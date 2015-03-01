@@ -82,6 +82,18 @@ describe('eggs view engine',function(){
         .expect(200,/p e-text="passedParam">cheese!</,done);
     });
 
+    it('should render partials in the layout', function(done){
+      request(app)
+        .get('/')
+        .expect(200,/>HEADER</,done);
+    });
+
+    it('should render partials in partials, relative to the partial path', function(done){
+      request(app)
+        .get('/')
+        .expect(200,/>subpartial</,done);
+    });
+
   });
 
 });

@@ -27,16 +27,18 @@ var renderLayout = function(basePath,html,callback){
     var layoutPath = path.resolve(basePath,layout);
 
     var finishLayout = function(layoutStr){
-      var yMatch;
-      var tag;
-      while(match = yieldPattern.exec(layoutStr)) {
-        if(tag) return callback(new Error('Multiple yield tags found. You may only use one yield per layout.'));
-        tag = match[0];
-      };
-      if(!tag) return callback(new Error('No yield tag found in layout file. Layouts must include a yield tag.'));
-      layoutStr = layoutStr.replace(tag,html).replace(yieldClosePattern,'');
-      var layoutDir = path.dirname(layoutPath);
-      renderLayout(layoutDir,layoutStr,callback);
+      renderPartials(basePath,layoutStr,function(err,layoutStr){
+        var yMatch;
+        var tag;
+        while(match = yieldPattern.exec(layoutStr)) {
+          if(tag) return callback(new Error('Multiple yield tags found. You may only use one yield per layout.'));
+          tag = match[0];
+        };
+        if(!tag) return callback(new Error('No yield tag found in layout file. Layouts must include a yield tag.'));
+        layoutStr = layoutStr.replace(tag,html).replace(yieldClosePattern,'');
+        var layoutDir = path.dirname(layoutPath);
+        renderLayout(layoutDir,layoutStr,callback);
+      });
     };
 
     if(layoutCache[layoutPath]){
@@ -79,16 +81,19 @@ var renderPartials = function(basePath,html,callback){
     if(!/\./.test(partialPath)) partialPath = partialPath + '.html';
     partialPath = path.resolve(basePath,partialPath);
 
-    var addPartial = function(partial){
-      html = html.replace(p.tag,partial);
-      renderPartials(basePath,html,done);
+    var addPartial = function(partialHtml){
+      renderPartials(path.dirname(partialPath),partialHtml,function(err,partial){
+        if(err) return done(err);
+        html = html.replace(p.tag,partial);
+        done();
+      });
     };
 
     if(partialCache[partialPath]){
       addPartial(partialCache[partialPath]);
     } else {
       fs.exists(partialPath,function(exists){
-        if(!exists) return callback(new Error('Unable to find partial at ' + partialPath));
+        if(!exists) return done(new Error('Unable to find partial at ' + partialPath));
         fs.readFile(partialPath,'utf8',function(err,partial){
           var partial = partial.toString();
           partialCache[partialPath] = partial;
