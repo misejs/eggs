@@ -101,6 +101,42 @@ describe('eggs repeat directive',function(){
     });
   });
 
+  describe('nested repeats', function(){
+    var e;
+    var vm;
+
+    before(function(ready){
+      var html = '<div id="content">\
+        <ul id="ul" e-repeat="items">\
+          <li e-repeat="list">\
+            <p e-text="text"></p>\
+          </li>\
+        </ul>\
+      </div>';
+      function VM() {
+        this.items = [
+          { list : [{text : 'a one'},{text : 'a two'}] },
+          { list : [{text : 'b one'},{text : 'b two'}] }
+        ];
+      };
+      e = eggs(html,{selector : '#content'},VM,ready);
+      vm = e.viewModel;
+    });
+
+    it('should have the proper number of top level childen',function(){
+      var ul = utils.findNode(e.html(),'#ul')[0];
+      assert.equal(ul.children.length,2);
+    });
+
+    it('should have the proper number of nested children at each level', function(){
+      var ul = utils.findNode(e.html(),'#ul')[0];
+      assert.equal(ul.children[0].children.length,2);
+      assert.equal(ul.children[1].children.length,2);
+      assert.equal(ul.children[1].children[1].children[0].text,'b two');
+    });
+
+  });
+
   describe('with existing server-populated data', function(){
     var e;
     var vm;
