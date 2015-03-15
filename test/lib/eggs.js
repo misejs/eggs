@@ -62,6 +62,16 @@ describe('eggs',function(){
 
     });
 
+    describe('element attachment', function(){
+      it('should evaluate directives at the root level',function(done){
+        function Model(){ this.className = 'a-class'; };
+        var e = eggs('<div id="x" e-class="className"></div>',{selector : "#x"},Model,function(){
+          assert.ok(/class="a-class"/.test(e.html()));
+          done();
+        });
+      });
+    });
+
     describe('when setting a custom prefix', function(){
 
       it('should use that prefix for existing directives',function(done){
