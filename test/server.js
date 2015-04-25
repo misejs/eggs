@@ -12,6 +12,7 @@ require('./lib/directives/text');
 // eggs
 require('./lib/eggs');
 require('./lib/parseOptions');
+require('./lib/observe');
 
 // view engine
 require('./view-engine');

@@ -12,5 +12,7 @@ require('./lib/directives/style');
 require('./lib/directives/text');
 
 // eggs
+require('./lib/observe');
 require('./lib/eggs');
+require('./lib/eggs-virtualdom');
 require('./lib/parseOptions');
